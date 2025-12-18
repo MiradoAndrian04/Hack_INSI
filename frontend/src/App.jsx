@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Sparkles, Globe, Brain, Trophy, ChevronRight, Lightbulb, RotateCcw, CheckCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import i18n from './i18n'; // Assurez-vous de créer ce fichier pour configurer i18next
 
 export default function QuizApp() {
+  const { t } = useTranslation();
+
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [selectedTheme, setSelectedTheme] = useState(null);
@@ -12,55 +16,60 @@ export default function QuizApp() {
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
 
   const languages = [
-    { code: 'fr', name: 'Malagasy', flag: 'MLG' },
-    { code: 'en', name: 'Francais', flag: 'FRS' },
-    { code: 'es', name: 'English', flag: 'GB' },
+    { code: 'fr', name: t('language.malagasy'), flag: 'MLG' },
+    { code: 'en', name: t('language.french'), flag: 'FRS' },
+    { code: 'es', name: t('language.english'), flag: 'GB' },
   ];
 
   const themes = [
-    { id: 'science', name: 'Sciences', icon: '🔬', color: '#22d3ee', gradient: 'from-cyan-400 to-blue-500' },
-    { id: 'history', name: 'Histoire', icon: '📚', color: '#fb923c', gradient: 'from-orange-400 to-red-500' },
-    { id: 'geography', name: 'Géographie', icon: '🌍', color: '#4ade80', gradient: 'from-green-400 to-emerald-500' },
-    { id: 'art', name: 'Art', icon: '🎨', color: '#f472b6', gradient: 'from-pink-400 to-rose-500' }
+    { id: 'science', name: t('theme.science'), icon: '🔬', color: '#22d3ee', gradient: 'from-cyan-400 to-blue-500' },
+    { id: 'history', name: t('theme.history'), icon: '📚', color: '#fb923c', gradient: 'from-orange-400 to-red-500' },
+    { id: 'geography', name: t('theme.geography'), icon: '🌍', color: '#4ade80', gradient: 'from-green-400 to-emerald-500' },
+    { id: 'art', name: t('theme.art'), icon: '🎨', color: '#f472b6', gradient: 'from-pink-400 to-rose-500' }
   ];
 
   const questions = [
     {
-      q: "Quelle est la capitale de la France ?",
-      options: ["Paris", "Londres", "Berlin", "Rome"],
+      q: t('questions.q1.question'),
+      options: [t('questions.q1.options.0'), t('questions.q1.options.1'), t('questions.q1.options.2'), t('questions.q1.options.3')],
       correct: 0,
-      hint: "C'est la ville lumière",
-      level: "Facile"
+      hint: t('questions.q1.hint'),
+      level: t('questions.q1.level')
     },
     {
-      q: "Combien de continents y a-t-il sur Terre ?",
-      options: ["5", "6", "7", "8"],
+      q: t('questions.q2.question'),
+      options: [t('questions.q2.options.0'), t('questions.q2.options.1'), t('questions.q2.options.2'), t('questions.q2.options.3')],
       correct: 2,
-      hint: "Il y a l'Antarctique aussi",
-      level: "Moyen"
+      hint: t('questions.q2.hint'),
+      level: t('questions.q2.level')
     },
     {
-      q: "Quelle est la vitesse de la lumière ?",
-      options: ["300 000 km/s", "150 000 km/s", "500 000 km/s", "200 000 km/s"],
+      q: t('questions.q3.question'),
+      options: [t('questions.q3.options.0'), t('questions.q3.options.1'), t('questions.q3.options.2'), t('questions.q3.options.3')],
       correct: 0,
-      hint: "C'est un chiffre rond avec beaucoup de zéros",
-      level: "Difficile"
+      hint: t('questions.q3.hint'),
+      level: t('questions.q3.level')
     },
     {
-      q: "Qui a peint la Joconde ?",
-      options: ["Picasso", "Van Gogh", "Léonard de Vinci", "Monet"],
+      q: t('questions.q4.question'),
+      options: [t('questions.q4.options.0'), t('questions.q4.options.1'), t('questions.q4.options.2'), t('questions.q4.options.3')],
       correct: 2,
-      hint: "C'était aussi un inventeur",
-      level: "Facile"
+      hint: t('questions.q4.hint'),
+      level: t('questions.q4.level')
     },
     {
-      q: "Quelle est la plus grande planète du système solaire ?",
-      options: ["Saturne", "Jupiter", "Neptune", "Terre"],
+      q: t('questions.q5.question'),
+      options: [t('questions.q5.options.0'), t('questions.q5.options.1'), t('questions.q5.options.2'), t('questions.q5.options.3')],
       correct: 1,
-      hint: "Elle a une grande tache rouge",
-      level: "Moyen"
+      hint: t('questions.q5.hint'),
+      level: t('questions.q5.level')
     }
   ];
+
+  const handleLanguageChange = (langCode) => {
+    i18n.changeLanguage(langCode);
+    setSelectedLanguage(langCode);
+  };
 
   const handleAnswerSelect = (index) => {
     setSelectedAnswer(index);
@@ -107,16 +116,16 @@ export default function QuizApp() {
         <div className="relative z-10 container mx-auto px-4 py-12 max-w-6xl">
           <div className="text-center mb-16"> 
             <h1 className="text-7xl font-black mb-4 bg-gradient-to-r from-orange-500 via-pink-500 to-cyan-500 bg-clip-text text-transparent leading-tight">
-              QuizMaster
+              {t('home.title')}
             </h1>
-            <p className="text-2xl text-gray-600 font-light">Apprendre n'a jamais été aussi amusant</p>
+            <p className="text-2xl text-gray-600 font-light">{t('home.subtitle')}</p>
           </div>
 
           {/* Sélection de langue avec dropdown */}
           <div className="mb-12 max-w-md mx-auto">
             <div className="flex items-center gap-3 mb-4 justify-center">
               <Globe className="text-cyan-600" size={32} />
-              <h2 className="text-3xl font-bold text-gray-800">Choisissez votre langue</h2>
+              <h2 className="text-3xl font-bold text-gray-800">{t('home.chooseLanguage')}</h2>
             </div>
             
             <div className="relative">
@@ -135,7 +144,7 @@ export default function QuizApp() {
                       </span>
                     </div>
                   ) : (
-                    <span className="text-xl text-gray-500 font-medium">Sélectionnez une langue...</span>
+                    <span className="text-xl text-gray-500 font-medium">{t('home.selectLanguage')}</span>
                   )}
                   <ChevronRight 
                     className={`text-gray-600 transition-transform duration-300 ${isLanguageDropdownOpen ? 'rotate-90' : ''}`} 
@@ -150,7 +159,7 @@ export default function QuizApp() {
                     <button
                       key={lang.code}
                       onClick={() => {
-                        setSelectedLanguage(lang.code);
+                        handleLanguageChange(lang.code);
                         setIsLanguageDropdownOpen(false);
                       }}
                       className={`w-full p-5 flex items-center gap-4 transition-all duration-200 ${
@@ -175,7 +184,7 @@ export default function QuizApp() {
             <div className="mb-12">
               <div className="flex items-center gap-3 mb-6">
                 <Brain className="text-pink-600" size={32} />
-                <h2 className="text-3xl font-bold text-gray-800">Choisissez un thème</h2>
+                <h2 className="text-3xl font-bold text-gray-800">{t('home.chooseTheme')}</h2>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {themes.map((theme) => (
@@ -209,7 +218,7 @@ export default function QuizApp() {
                 onClick={() => setCurrentPage('quiz')}
                 className="group inline-flex items-center gap-4 bg-gradient-to-r from-orange-500 via-pink-500 to-cyan-500 text-white px-12 py-6 rounded-full text-2xl font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
               >
-                <span>Commencer l'aventure</span>
+                <span>{t('home.startAdventure')}</span>
                 <ChevronRight className="group-hover:translate-x-2 transition-transform" size={32} />
               </button>
             </div>
@@ -235,17 +244,17 @@ export default function QuizApp() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                  <span className="text-gray-700 font-bold">Question {currentQuestion + 1}/5</span>
+                  <span className="text-gray-700 font-bold">{t('quiz.question')} {currentQuestion + 1}/5</span>
                 </div>
                 <div className={`px-4 py-2 rounded-full shadow-lg ${
-                  currentQ.level === 'Facile' ? 'bg-green-400' :
-                  currentQ.level === 'Moyen' ? 'bg-orange-400' : 'bg-red-400'
+                  currentQ.level === t('level.easy') ? 'bg-green-400' :
+                  currentQ.level === t('level.medium') ? 'bg-orange-400' : 'bg-red-400'
                 } text-white font-bold`}>
                   {currentQ.level}
                 </div>
               </div>
               <div className="bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                <span className="text-gray-700 font-bold">Score: {score}</span>
+                <span className="text-gray-700 font-bold">{t('quiz.score')}: {score}</span>
               </div>
             </div>
             
@@ -303,7 +312,7 @@ export default function QuizApp() {
               className="flex-1 flex items-center justify-center gap-3 bg-gradient-to-r from-amber-400 to-orange-500 text-white px-6 py-4 rounded-2xl font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
               <Lightbulb size={24} />
-              <span>{showHint ? 'Masquer l\'indice' : 'Afficher l\'indice'}</span>
+              <span>{showHint ? t('quiz.hideHint') : t('quiz.showHint')}</span>
             </button>
             <button
               onClick={handleValidate}
@@ -314,7 +323,7 @@ export default function QuizApp() {
                   : 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-2xl transform hover:scale-105'
               }`}
             >
-              <span>Valider</span>
+              <span>{t('quiz.validate')}</span>
               <ChevronRight size={24} />
             </button>
           </div>
@@ -324,7 +333,7 @@ export default function QuizApp() {
               <div className="flex items-start gap-3">
                 <Lightbulb className="text-amber-600 flex-shrink-0 mt-1" size={24} />
                 <div>
-                  <h3 className="font-bold text-amber-900 mb-1">Indice :</h3>
+                  <h3 className="font-bold text-amber-900 mb-1">{t('quiz.hint')} :</h3>
                   <p className="text-amber-800">{currentQ.hint}</p>
                 </div>
               </div>
@@ -337,34 +346,34 @@ export default function QuizApp() {
 
   if (currentPage === 'results') {
     const percentage = (score / 5) * 100;
-    const grade = percentage >= 80 ? 'Excellent !' : percentage >= 60 ? 'Bien !' : percentage >= 40 ? 'Pas mal' : 'À améliorer';
+    const grade = percentage >= 80 ? t('results.excellent') : percentage >= 60 ? t('results.good') : percentage >= 40 ? t('results.notBad') : t('results.improve');
     
     const strengths = score >= 4 ? [
-      'Excellente concentration',
-      'Très bonne mémoire',
-      'Compréhension rapide'
+      t('results.strengths.excellentConcentration'),
+      t('results.strengths.goodMemory'),
+      t('results.strengths.quickUnderstanding')
     ] : score >= 3 ? [
-      'Bonne logique',
-      'Efforts constants',
-      'Volonté d\'apprendre'
+      t('results.strengths.goodLogic'),
+      t('results.strengths.constantEffort'),
+      t('results.strengths.willingToLearn')
     ] : [
-      'Curiosité évidente',
-      'Persévérance',
-      'Potentiel à développer'
+      t('results.strengths.curiosity'),
+      t('results.strengths.perseverance'),
+      t('results.strengths.potential')
     ];
 
     const improvements = score < 3 ? [
-      'Revoir les bases du thème choisi',
-      'Pratiquer régulièrement avec des quiz similaires',
-      'Utiliser les indices pour mieux comprendre'
+      t('results.improvements.reviewBasics'),
+      t('results.improvements.practiceRegularly'),
+      t('results.improvements.useHints')
     ] : score < 5 ? [
-      'Approfondir les sujets difficiles',
-      'Réviser les réponses incorrectes',
-      'Augmenter le temps de réflexion'
+      t('results.improvements.diveDeeper'),
+      t('results.improvements.reviewMistakes'),
+      t('results.improvements.takeTime')
     ] : [
-      'Explorer des niveaux plus difficiles',
-      'Essayer d\'autres thèmes',
-      'Partager vos connaissances'
+      t('results.improvements.tryHarderLevels'),
+      t('results.improvements.exploreThemes'),
+      t('results.improvements.shareKnowledge')
     ];
 
     return (
@@ -394,7 +403,7 @@ export default function QuizApp() {
               </div>
             </div>
             <h1 className="text-6xl font-black mb-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
-              Quiz terminé !
+              {t('results.title')}
             </h1>
             <div className="inline-flex items-center gap-4 bg-white/90 backdrop-blur-sm px-8 py-4 rounded-full shadow-xl">
               <span className="text-5xl font-black text-gray-800">{score}/5</span>
@@ -407,22 +416,22 @@ export default function QuizApp() {
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl text-center transform hover:scale-105 transition-all">
               <div className="text-4xl font-black text-emerald-500 mb-2">{score}</div>
-              <div className="text-gray-600 font-semibold">Réponses correctes</div>
+              <div className="text-gray-600 font-semibold">{t('results.correctAnswers')}</div>
             </div>
             <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl text-center transform hover:scale-105 transition-all">
               <div className="text-4xl font-black text-cyan-500 mb-2">{5 - score}</div>
-              <div className="text-gray-600 font-semibold">À améliorer</div>
+              <div className="text-gray-600 font-semibold">{t('results.toImprove')}</div>
             </div>
             <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl text-center transform hover:scale-105 transition-all">
               <div className="text-4xl font-black text-orange-500 mb-2">{percentage}%</div>
-              <div className="text-gray-600 font-semibold">Réussite</div>
+              <div className="text-gray-600 font-semibold">{t('results.successRate')}</div>
             </div>
           </div>
 
           <div className="bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl p-8 shadow-2xl mb-6">
             <h2 className="text-3xl font-black text-white mb-6 flex items-center gap-3">
               <div className="bg-white/20 p-2 rounded-xl">✨</div>
-              Vos points forts
+              {t('results.strengths.title')}
             </h2>
             <div className="space-y-3">
               {strengths.map((strength, index) => (
@@ -437,7 +446,7 @@ export default function QuizApp() {
           <div className="bg-gradient-to-br from-orange-400 to-pink-500 rounded-3xl p-8 shadow-2xl mb-8">
             <h2 className="text-3xl font-black text-white mb-6 flex items-center gap-3">
               <div className="bg-white/20 p-2 rounded-xl">🎯</div>
-              Conseils d'amélioration
+              {t('results.improvements.title')}
             </h2>
             <div className="space-y-3">
               {improvements.map((improvement, index) => (
@@ -455,14 +464,14 @@ export default function QuizApp() {
               className="flex-1 flex items-center justify-center gap-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-5 rounded-2xl text-xl font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
             >
               <RotateCcw size={28} />
-              <span>Recommencer</span>
+              <span>{t('results.restart')}</span>
             </button>
             <button
               onClick={restart}
               className="flex-1 flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-5 rounded-2xl text-xl font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
             >
               <Trophy size={28} />
-              <span>Nouveau thème</span>
+              <span>{t('results.newTheme')}</span>
             </button>
           </div>
         </div>
