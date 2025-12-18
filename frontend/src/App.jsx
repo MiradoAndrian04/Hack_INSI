@@ -12,16 +12,16 @@ export default function QuizApp() {
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
 
   const languages = [
-    { code: 'fr', name: 'Malagasy', flag: 'MLG' },
-    { code: 'en', name: 'Francais', flag: 'FRS' },
-    { code: 'es', name: 'English', flag: 'GB' },
+    { code: 'mlg', name: 'Malagasy', flag: 'Mg' },
+    { code: 'fr', name: 'Francais', flag: 'Fr' },
+    { code: 'en', name: 'English', flag: 'Gb' },
   ];
 
   const themes = [
-    { id: 'science', name: 'Sciences', icon: '🔬', color: '#22d3ee', gradient: 'from-cyan-400 to-blue-500' },
-    { id: 'history', name: 'Histoire', icon: '📚', color: '#fb923c', gradient: 'from-orange-400 to-red-500' },
-    { id: 'geography', name: 'Géographie', icon: '🌍', color: '#4ade80', gradient: 'from-green-400 to-emerald-500' },
-    { id: 'art', name: 'Art', icon: '🎨', color: '#f472b6', gradient: 'from-pink-400 to-rose-500' }
+    { id: 'science', name: 'Sciences', color: '#22d3ee', gradient: 'from-cyan-400 to-blue-500' },
+    { id: 'history', name: 'Histoire', color: '#fb923c', gradient: 'from-orange-400 to-red-500' },
+    { id: 'geography', name: 'Géographie', color: '#4ade80', gradient: 'from-green-400 to-emerald-500' },
+    { id: 'art', name: 'Art', color: '#f472b6', gradient: 'from-pink-400 to-rose-500' }
   ];
 
   const questions = [
@@ -107,7 +107,7 @@ export default function QuizApp() {
         <div className="relative z-10 container mx-auto px-4 py-12 max-w-6xl">
           <div className="text-center mb-16"> 
             <h1 className="text-7xl font-black mb-4 bg-gradient-to-r from-orange-500 via-pink-500 to-cyan-500 bg-clip-text text-transparent leading-tight">
-              QuizMaster
+              AIQuest
             </h1>
             <p className="text-2xl text-gray-600 font-light">Apprendre n'a jamais été aussi amusant</p>
           </div>
@@ -126,11 +126,11 @@ export default function QuizApp() {
               >
                 <div className="flex items-center justify-between">
                   {selectedLanguage ? (
-                    <div className="flex items-center gap-4">
-                      <span className="text-4xl">
+                    <div className="flex items-center">
+                      <span className="text-xl">
                         {languages.find(l => l.code === selectedLanguage)?.flag}
                       </span>
-                      <span className="text-2xl font-bold text-gray-800">
+                      <span className="flex text-2xl font-semibold text-gray-800 ml-[90%]">
                         {languages.find(l => l.code === selectedLanguage)?.name}
                       </span>
                     </div>
@@ -159,8 +159,8 @@ export default function QuizApp() {
                           : 'hover:bg-gray-100 text-gray-700'
                       } ${index !== languages.length - 1 ? 'border-b border-gray-200' : ''}`}
                     >
-                      <span className="text-4xl">{lang.flag}</span>
-                      <span className="text-xl font-semibold flex-grow text-left">{lang.name}</span>
+                      <span className="text-lg text-black-500">{lang.flag}</span>
+                      <span className="text-2xl font-semibold flex-grow text-center">{lang.name}</span>
                       {selectedLanguage === lang.code && (
                         <CheckCircle className="text-white" size={24} />
                       )}
@@ -174,8 +174,7 @@ export default function QuizApp() {
           {selectedLanguage && (
             <div className="mb-12">
               <div className="flex items-center gap-3 mb-6">
-                <Brain className="text-pink-600" size={32} />
-                <h2 className="text-3xl font-bold text-gray-800">Choisissez un thème</h2>
+                <h2 className="text-3xl font-bold text-gray-800 ml-[38%]">Choisissez un thème</h2>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {themes.map((theme) => (
